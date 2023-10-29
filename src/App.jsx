@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Course from "./Component/Course.jsx";
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function getRandomCourse() {
+  const courseArray = ["Angular", "Bootstrap", "CSharp", "KompleWeb"];
+  return courseArray[Math.floor(Math.random() * courseArray.length)];
 }
 
-export default App
+function App() {
+  const [courses, setCourses] = useState([]);
+
+  const handleClick = () => {
+    setCourses([...courses, getRandomCourse()]);
+  };
+
+  const courseList = courses.map((course, index) => {
+    return <Course key={index} courseName={course} />;
+  });
+
+  return (
+    <div className="App">
+      <button className="appButton" onClick={handleClick}>
+        Kurs Ekle
+      </button>
+      <div className="courseList">{courseList}</div>
+    </div>
+  );
+}
+
+export default App;
